@@ -27,10 +27,14 @@ import os
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.utils import active_plugins
+from qgis.core import QgsProject
+from qgis.core import QgsMapLayerType
+from qgis.core import QgsWkbTypes
 
-import time
+import geopandas as gpd 
+import json 
 
-
+ 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'drought_indexer_dialog_base.ui'))
@@ -46,10 +50,50 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-
-        self.okBtn.accepted.connect(self.showValue)
         
+        self.okBtn.accepted.connect(self.showValue)
+        # Fetch the currently loaded layers
+        layers = QgsProject.instance().layerTreeRoot().children()
 
+        #filter the layers in the TOC by type of Layer and geometry
+        vector_layers = []
+        for layer in QgsProject.instance().mapLayers().values(): 
+             if layer.type() == QgsMapLayerType.VectorLayer:
+                  
+                if layer.geometryType() == QgsWkbTypes.PolygonGeometry:  
+                   vector_layers.append(layer) 
+
+        # Clear the contents of the comboBox from previous runs
+        self.cbTocLayers.clear()
+        
+        # Populate the comboBox with names of all the loaded layers
+        self.cbTocLayers.addItems([layer.name() for layer in vector_layers])
+        
+        # Connect cancel button to close slot
+        self.okBtn.rejected.connect(self.cancelAction)
+        
+    def cancelAction(self):
+        # Define the action to perform when the cancel button is clicked
+        self.close()  # Close the dialog    
+   
+    def getGoJSONCoordinates(self,geojson_data):
+            # Check the structure of the GeoJSON data
+            if 'features' in geojson_data and len(geojson_data['features']) > 0:
+                feature = geojson_data['features'][0]  # Assuming the first feature
+                if 'geometry' in feature:
+                    geometry = feature['geometry']
+                    if 'coordinates' in geometry:
+                        coordinates = geometry['coordinates']
+                        print("coordinates are", coordinates)
+                    else:
+                        print("No coordinates found in the geometry")
+                else:
+                    print("No geometry found in the feature")
+            else:
+                print("No features found in the GeoJSON data")
+            
+            return coordinates
+        
     def isPluginEnabled(self,plugin_name):
             plugins = active_plugins
             plugin_status = None
@@ -62,6 +106,18 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
             return plugin_status
 
     def showValue(self):
+        
+        # image = None
+        current_shp = self.cbTocLayers.currentText()
+        current_shp= QgsProject.instance().mapLayersByName(str(current_shp))
+        print(current_shp)
+        layer_path = current_shp[0].source()
+        
+        df = gpd.read_file(layer_path)
+        print(df)
+        
+        curent_shp_json = df.to_json()
+        print(curent_shp_json)
 
         # Check if the required plugin is enabled
         plugin_status  = self.isPluginEnabled('ee_plugin')
@@ -72,24 +128,56 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
         
         import ee 
         from ee_plugin import Map
-        xmin = self.sbXmin.value()
-        xmax = self.sbXmax.value() 
+
+        xLeft = self.sbXmax.value()
+        xmax = xLeft
 
         ymax = self.sbYmax.value()
         ymin = self.sbYmin.value()
         
 
         xmax_right = self.sbXmaxr.value()
-        xmin_right = self.sbXminr.value()
+        xLeft_right = xmax_right
 
-        ymax_right = self.sbYmaxr.value()
-        ymin_right = self.sbYminr.value()
+        ymax_right = ymax
+        ymin_right = ymin
 
         ROI1=ee.FeatureCollection('users/muthamijohn/kwanza_constituency')
 
-        if xmax and ymax and xmax_right and ymax_right and xmin_right and ymin_right and xmin and ymin:
-            ROI1=ee.Geometry.Polygon([[xmax,ymax],[xmax_right,ymax_right],[xmin_right,ymin_right],[xmin,ymin],])
-        
+        if xmax and ymax and xmax_right and ymax_right and xLeft_right and ymin_right and xLeft and ymin:
+            ROI1=ee.Geometry.Polygon([[xmax,ymax],[xmax_right,ymax_right],[xLeft_right,ymin_right],[xLeft,ymin],])
+            
+        elif self.cbTocROI.isChecked():
+            current_shp_index = self.cbTocLayers.currentIndex()
+            print(current_shp_index)
+            current_shp_name = self.cbTocLayers.currentText()
+            current_shp_obj= QgsProject.instance().mapLayersByName(str(current_shp_name))
+            print(current_shp_obj)
+            layer_path = current_shp_obj[0].source()
+            
+            df = gpd.read_file(layer_path)
+            print(df)
+            
+            curent_shp_json = df.to_json()
+            curent_shp_json = json.loads(curent_shp_json)
+            # print(curent_shp_json)
+            geo_json_data = curent_shp_json
+            
+            print("GEOJSON:", geo_json_data)
+            geojson_data= geo_json_data
+            coordinates = self.getGoJSONCoordinates(geojson_data)
+            ROI1 = ee.Geometry.Polygon(coordinates)
+            
+        elif self.cbGeoJsonROI.isChecked():
+            json_data = gpd.read_file(self.LegeojsonPath.filePath())
+            curent_json = json_data
+            curent_geo_json = json.loads(curent_json)
+            coordinates = self.getGoJSONCoordinates(curent_geo_json)
+            ROI1 = ee.Geometry.Polygon(coordinates)
+            
+            
+         # Update progress bar value
+        self.progressBar.setValue(10)
         Map.centerObject(ROI1, 12)
         start_year = int( self.startDate.currentText())
         end_year = int(self.endDate.currentText())
@@ -113,11 +201,6 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
             print(" no season lioke that exists ")
 
         images = []
-
-        
-        def maskS2clouds(image):
-            return image.updateMask(image.select('QA60').eq(0))
-
 
         def calculate_drought_index(start_year, end_year,startmonth,endmonth):
             
@@ -144,10 +227,11 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
                         .filter(ee.Filter.calendarRange(startmonth,endmonth, 'month'))\
                         .filterBounds(geometry)
 
-                col1 = col.mean().clip(geometry)
-
+                col_image = col.mean().clip(geometry)
                 # Image reduction
-                image = col.mean()
+                image = col.mean().clip(geometry)
+                # Update progress bar value
+                self.progressBar.setValue(25)
 
                 # Calculate TOA spectral radiance
                 ML = 0.055375
@@ -169,11 +253,11 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
                         })
 
 
-                clippedbrightnessTemp = brightnessTemp.clip(geometry)
+                brightnessTemp = brightnessTemp.clip(geometry)
 
                 # Median
                 ndvi = image.normalizedDifference(['B4', 'B3']).rename('NDVI')
-                NDVI_IMAGE = ndvi.clip(geometry)
+                ndvi = ndvi.clip(geometry)
 
                 # Find the min and max of NDVI
                 min_val = ndvi.reduceRegion(ee.Reducer.min(), geometry, 30, maxPixels=1e9).get('NDVI')
@@ -199,7 +283,10 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 # Clip the land surface temperature image to the geometry
                 clippedLandSurfaceTemp = landSurfaceTemp.clip(geometry)
-
+                
+                # Update progress bar value
+                self.progressBar.setValue(50)
+                
                 # Find the min and max of LST
                 min_v = clippedLandSurfaceTemp.reduceRegion(ee.Reducer.min(), geometry, 30, maxPixels=1e9).values().get(0)
                 max_v = clippedLandSurfaceTemp.reduceRegion(ee.Reducer.max(), geometry, 30, maxPixels=1e9).values().get(0)
@@ -231,44 +318,33 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
 
 
                 images.append(Drought_index_sd_image)
-                images.append(Drought_Index)
-                min_value_DI = Drought_Index.reduceRegion(ee.Reducer.min(), geometry, 30, maxPixels=1e9).values().get(0)
-                max_value_DI = Drought_Index.reduceRegion(ee.Reducer.max(), geometry, 30, maxPixels=1e9).values().get(0)
-                print(max_value_DI.getInfo())
-                print(min_value_DI.getInfo())
-                min_value = Drought_index_sd_image.reduceRegion(ee.Reducer.min(), geometry, 30, maxPixels=1e9).values().get(0)
-                max_value = Drought_index_sd_image.reduceRegion(ee.Reducer.max(), geometry, 30, maxPixels=1e9).values().get(0)
-                print(max_value.getInfo())
-                print(min_value.getInfo())
-                for i in range(100):
-                    # Simulate some processing
-                    time.sleep(0.1)
-                    progress =int( (i + 1) / 100 * 100)
-                    print("Progress:", progress)
-                    # Update progress bar value
-                    self.progressBar.setValue(progress)
-                return Drought_index_sd_image
+                # images.append(Drought_Index)
+                images.append(ndvi)
+                images.append(col_image)
+
+                # Update progress bar value
+                self.progressBar.setValue(75)
+                return images
         
         calculate_drought_index(start_year, end_year,startmonth,endmonth)    
 
-
+       # add the SADI image to map object
         Map.addLayer(images[0],{'min':-1,'max':1,'palette':['#ec0000','#ecca00','#ec9b00','#ec5300','#ec2400']},'Drought index standardized image')
     
+        # # get the Satellite Imagery into the map Object
+        
+        Map.addLayer(images[2].select('B3','B2','B1'),{'min':3,'max':200, },'Landsat satellite image')
+       
 
-            
-        S2 = ee.ImageCollection('COPERNICUS/S2').filter(ee.Filter.calendarRange(2017,2021, 'year')).filter(ee.Filter.calendarRange(4, 7, 'month')).map(maskS2clouds).filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 5)).filterBounds(ROI1)
-
-        Map.addLayer(S2.median().select('B4','B3','B2'),{'min':0,'max':3000, },'satellite image')
-
-        image = S2.median()
-
-        # Compute NDVI
-        ndvi = image.normalizedDifference(['B8', 'B4']).rename('NDVI')
+        # Get NDVI
+        ndvi = images[1]
         indecesVis = {'min': -1 ,"max": 1, 'palette': ['red','yellow','green']}
-        image = image.addBands([ndvi])
-        Map.addLayer(image.select('NDVI'),indecesVis,"NDVI")
+        Map.addLayer(ndvi,indecesVis,"NDVI")
+        # Update progress bar value
+        self.progressBar.setValue(100)
 
 
 
-        if xmin > 0:
-            print(xmin)
+    
+
+        
