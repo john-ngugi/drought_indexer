@@ -52,30 +52,39 @@ class droughtIndexerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
         
         self.okBtn.accepted.connect(self.showValue)
+        self.okBtn.rejected.connect(self.cancelAction)
+
+        # Populate combobox with layers from the table of contents
+        self.populateComboBox()
+
+    def populateComboBox(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
 
-        #filter the layers in the TOC by type of Layer and geometry
+        # Filter the layers in the TOC by type of Layer and geometry
         vector_layers = []
-        for layer in QgsProject.instance().mapLayers().values(): 
-             if layer.type() == QgsMapLayerType.VectorLayer:
-                  
-                if layer.geometryType() == QgsWkbTypes.PolygonGeometry:  
-                   vector_layers.append(layer) 
+        for layer in QgsProject.instance().mapLayers().values():
+            if layer.type() == QgsMapLayerType.VectorLayer:
+                if layer.geometryType() == QgsWkbTypes.PolygonGeometry:
+                    vector_layers.append(layer)
 
         # Clear the contents of the comboBox from previous runs
         self.cbTocLayers.clear()
-        
-        # Populate the comboBox with names of all the loaded layers
+
+        # Populate the comboBox with names of all the loaded vector layers
         self.cbTocLayers.addItems([layer.name() for layer in vector_layers])
-        
-        # Connect cancel button to close slot
-        self.okBtn.rejected.connect(self.cancelAction)
-        
+
+    def resetComboBox(self):
+        # Reset combobox with new layers data from the table of contents
+        self.populateComboBox()
+
+    def initGui(self):
+        # Reset combobox when the plugin is opened again
+        self.resetComboBox()
+
     def cancelAction(self):
         # Define the action to perform when the cancel button is clicked
-        self.close()  # Close the dialog    
-   
+        self.close()  # Close the dialog
     def getGoJSONCoordinates(self,geojson_data):
             # Check the structure of the GeoJSON data
             if 'features' in geojson_data and len(geojson_data['features']) > 0:
