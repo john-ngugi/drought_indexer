@@ -1,0 +1,47 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=SADI Processor
+qgisMinimumVersion=3.0
+description=A plugin to Process Standardized Agricultural Drought Index.
+version=0.1
+author=John Ngugi, Dr. Godfrey Makokha
+email=johnngugi0407@gmail.com
+
+about=Welcome to SADI Processor! SADI Processor is your premier software tool for swiftly and accurately assessing the Standardized Agricultural Drought Index (SADI) in any region. Our user-friendly interface and robust features make it a breeze for farmers, policymakers, and researchers to understand drought conditions and their impact on agriculture. Key Features: Customized Analysis: Tailor your analysis by selecting your desired region, whether it's a single farm or an entire watershed. Real-Time Data: Access up-to-date data satellites. SADI Calculation: Utilize our advanced algorithms to compute the Standardized Agricultural Drought Index, enabling easy comparison across regions and timeframes. Interactive Visualization: Explore historical trends and identify drought hotspots through intuitive maps . SADI Processor empowers users with the insights needed to mitigate agricultural losses and build resilience against drought.NOTE: google earth engine plugin required. 
+
+tracker=https://github.com/john-ngugi/drought_indexer
+repository=https://github.com/john-ngugi/drought_indexer
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=python
+
+homepage=https://github.com/john-ngugi/drought_indexer
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+

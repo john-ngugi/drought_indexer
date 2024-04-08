@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/drought_indexer" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
