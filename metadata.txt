@@ -1,47 +1,46 @@
 # This file contains metadata for your plugin.
 
-# This file should be included when you package your plugin.# Mandatory items:
-
 [general]
 name=SADI Processor
-qgisMinimumVersion=3.0
-description=A plugin to Process Standardized Agricultural Drought Index.
-version=0.1
+qgisMinimumVersion=3.16
+description=Compute the Standardized Agricultural Drought Index (SADI) using Google Earth Engine, Landsat 7 and CHIRPS precipitation data.
+version=0.2
 author=John Ngugi, Dr. Godfery Makokha, Bonface Odhiambo
 email=johnngugi0407@gmail.com
 
-about=Welcome to SADI Processor! SADI Processor is your premier software tool for swiftly and accurately assessing the Standardized Agricultural Drought Index (SADI) in any region. Our user-friendly interface and robust features make it a breeze for farmers, policymakers, and researchers to understand drought conditions and their impact on agriculture. Key Features: Customized Analysis: Tailor your analysis by selecting your desired region, whether it's a single farm or an entire watershed. Real-Time Data: Access up-to-date data satellites. SADI Calculation: Utilize our advanced algorithms to compute the Standardized Agricultural Drought Index, enabling easy comparison across regions and timeframes. Interactive Visualization: Explore historical trends and identify drought hotspots through intuitive maps . SADI Processor empowers users with the insights needed to mitigate agricultural losses and build resilience against drought.NOTE: google earth engine plugin required. 
+about=SADI Processor computes the Standardized Agricultural Drought Index for any user-defined area of interest using Google Earth Engine cloud processing. The plugin calculates NDVI, VCI, Land Surface Temperature, TCI, VHI and the full DI classification chain to produce a SADI map layer and a multi-year time-series. Results are presented in an interactive panel with three tabs — Charts (NDVI, SADI, SPI trends), Prediction (Markov chain next-state probabilities and linear trend projection), and a Text Summary suitable for reporting. Authentication uses direct GEE OAuth2 with your GCP Project ID; no third-party QGIS plugin dependency is required. Precipitation data comes from CHIRPS daily composites and is standardised to SPI client-side.
 
-tracker=https://github.com/john-ngugi/drought_indexer
+tracker=https://github.com/john-ngugi/drought_indexer/issues
 repository=https://github.com/john-ngugi/drought_indexer
-# End of mandatory metadata
 
 # Recommended items:
-
 hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
-# changelog=
 
-# Tags are comma separated with spaces allowed
-tags=python
+changelog=
+    0.2 (2026-06-12)
+    - Direct GEE authentication via GCP Project ID + OAuth2; GCP project ID
+      persisted in QGIS profile across sessions
+    - Computation moved to QThread — UI stays responsive during processing
+    - Results panel with Charts, Prediction and Text Summary tabs
+    - Markov chain 4-state drought prediction and OLS linear trend projection
+    - SPI computed from CHIRPS daily precipitation
+    - Proper VHI (VCI + TCI) mapped per image before annual mean
+    - Per-year time-series gated by batch size check — fixes empty-collection
+      errors for years with no Landsat coverage
+    - Dynamic year range computed from current date; end year auto-set to last
+      fully elapsed season
+    - Geometry handling: auto-reproject to WGS84, MultiPolygon dissolve
+    - Charts and text summary exportable as PNG / clipboard copy
+    0.1 (2024-03-03)
+    - Initial release
+
+tags=drought, remote sensing, agriculture, Landsat, Google Earth Engine, NDVI, SADI, time series, precipitation, SPI
 
 homepage=https://github.com/john-ngugi/drought_indexer
-category=Plugins
+category=Raster
 icon=icon.png
-# experimental flag
-experimental=True
+experimental=False
 
-# deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
 
-# Since QGIS 3.8, a comma separated list of plugins to be installed
-# (or upgraded) can be specified.
-# Check the documentation for more information.
-# plugin_dependencies=
-
-Category of the plugin: Raster, Vector, Database or Web
-# category=
-
-# If the plugin can run on QGIS Server.
 server=False
-

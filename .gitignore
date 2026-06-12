@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Plugin package ZIPs
+*.zip
+
+# Qt / QGIS build artefacts
+*.pro.user
+*.qm
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~

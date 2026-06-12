@@ -6,420 +6,329 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>547</width>
-    <height>444</height>
+    <width>540</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SADI Processor</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_8">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>EnterProcessing Date</string>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>8</number>
+   </property>
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
+
+   <!-- Authentication -->
+   <item>
+    <widget class="QGroupBox" name="grpAuth">
+     <property name="title">
+      <string>Google Earth Engine Authentication</string>
      </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="3">
-    <widget class="QFrame" name="frame_2">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="2" rowspan="2">
-       <spacer name="horizontalSpacer_9">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+     <layout class="QGridLayout" name="authGrid">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblProject">
+        <property name="text">
+         <string>GCP Project ID:</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>88</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Start Year </string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>End Year</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Season</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QComboBox" name="startDate">
-          <item>
-           <property name="text">
-            <string>2000</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2001</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2002</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2003</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2004</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2005</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2006</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2007</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2008</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2009</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2010</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2011</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2012</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2013</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2014</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2015</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2016</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2017</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2018</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2019</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2020</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2021</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2022</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2023</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>41</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QComboBox" name="endDate">
-          <item>
-           <property name="text">
-            <string>2000</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2001</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2002</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2003</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2004</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2005</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2006</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2007</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2008</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2009</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2010</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2011</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2012</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2013</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2014</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2015</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2016</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2017</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2018</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2019</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2020</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2021</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2022</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>2023</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>65</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="season">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>4</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0" rowspan="2">
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QLineEdit" name="leProjectId">
+        <property name="placeholderText">
+         <string>e.g. my-gee-project-123</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>89</width>
-          <height>20</height>
-         </size>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="btnAuthenticate">
+        <property name="text">
+         <string>Authenticate</string>
         </property>
-       </spacer>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QLabel" name="lblAuthStatus">
+        <property name="text">
+         <string>Not authenticated</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Enter Region Of Interest</string>
+
+   <!-- Analysis Period -->
+   <item>
+    <widget class="QGroupBox" name="grpDates">
+     <property name="title">
+      <string>Analysis Period</string>
      </property>
+     <layout class="QHBoxLayout" name="datesLayout">
+      <item>
+       <widget class="QLabel" name="lblStart">
+        <property name="text">
+         <string>Start Year:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="startDate"/>
+      </item>
+      <item>
+       <spacer name="hSpacer1">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblEnd">
+        <property name="text">
+         <string>End Year:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="endDate"/>
+      </item>
+      <item>
+       <spacer name="hSpacer2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblSeasonLbl">
+        <property name="text">
+         <string>Season:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="season">
+        <item>
+         <property name="text">
+          <string>1 — Jan to Mar</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2 — Apr to Jun</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>3 — Jul to Sep</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>4 — Oct to Dec</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <spacer name="verticalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+
+   <!-- Area of Interest -->
+   <item>
+    <widget class="QGroupBox" name="grpAOI">
+     <property name="title">
+      <string>Area of Interest (AOI)</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>24</height>
-      </size>
-     </property>
-    </spacer>
+     <layout class="QVBoxLayout" name="aoiLayout">
+      <item>
+       <widget class="QTabWidget" name="tabAOI">
+
+        <!-- Tab: From TOC Layer -->
+        <widget class="QWidget" name="tabLayer">
+         <attribute name="title">
+          <string>From Layer</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="layerLayout">
+          <item>
+           <widget class="QComboBox" name="cbTocLayers">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>1</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnRefreshLayers">
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+            <property name="maximumWidth">
+             <number>80</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+
+        <!-- Tab: Enter Extent -->
+        <widget class="QWidget" name="tabExtent">
+         <attribute name="title">
+          <string>Enter Extent</string>
+         </attribute>
+         <layout class="QFormLayout" name="extentForm">
+          <property name="labelAlignment">
+           <set>Qt::AlignRight|Qt::AlignVCenter</set>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lblNorth">
+            <property name="text">
+             <string>North — Ymax (lat):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDoubleSpinBox" name="sbNorth">
+            <property name="minimum">
+             <double>-90.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>90.000000000000000</double>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="lblSouth">
+            <property name="text">
+             <string>South — Ymin (lat):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="sbSouth">
+            <property name="minimum">
+             <double>-90.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>90.000000000000000</double>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lblWest">
+            <property name="text">
+             <string>West — Xmin (lon):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDoubleSpinBox" name="sbWest">
+            <property name="minimum">
+             <double>-180.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>180.000000000000000</double>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="lblEast">
+            <property name="text">
+             <string>East — Xmax (lon):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QDoubleSpinBox" name="sbEast">
+            <property name="minimum">
+             <double>-180.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>180.000000000000000</double>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+
+        <!-- Tab: From File -->
+        <widget class="QWidget" name="tabFile">
+         <attribute name="title">
+          <string>From File</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="fileLayout">
+          <item>
+           <widget class="QLabel" name="lblFileHint">
+            <property name="text">
+             <string>Select a GeoJSON or Shapefile (.shp / .geojson):</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QgsFileWidget" name="LegeojsonPath"/>
+          </item>
+          <item>
+           <spacer name="fileSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
-   <item row="2" column="2">
-    <spacer name="verticalSpacer_3">
+
+   <!-- Vertical spacer -->
+   <item>
+    <spacer name="vSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -431,285 +340,32 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="0" colspan="3">
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+
+   <!-- Status + buttons -->
+   <item>
+    <widget class="QLabel" name="lblStatus">
+     <property name="text">
+      <string>Ready</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>151</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="1">
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="xMax">
-          <property name="text">
-           <string>X left</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QDoubleSpinBox" name="sbXmax"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QDoubleSpinBox" name="sbYmax">
-          <property name="minimum">
-           <double>-90.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>46</width>
-            <height>13</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="3" column="2">
-         <widget class="QDoubleSpinBox" name="sbYmin">
-          <property name="minimum">
-           <double>-90.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" rowspan="2">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="yMin">
-          <property name="text">
-           <string>Y min</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="XMax">
-          <property name="text">
-           <string>Y max</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="xMin">
-          <property name="text">
-           <string>X right</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QDoubleSpinBox" name="sbXmaxr">
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>125</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
     </widget>
    </item>
-   <item row="4" column="0" colspan="3">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <spacer name="horizontalSpacer_13">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>or</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_14">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item row="5" column="0" colspan="3">
-    <widget class="QFrame" name="frame_3">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+   <item>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>0</number>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_7">
-      <item row="0" column="0">
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Select Layer from the table of Contents </string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QComboBox" name="cbTocLayers"/>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_11">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>78</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="2" colspan="2">
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>   Select GeoJSON File                                      </string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QgsFileWidget" name="LegeojsonPath"/>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="cbTocROI">
-        <property name="text">
-         <string>use this as Region Of Interest</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="2">
-       <spacer name="horizontalSpacer_12">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>125</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="3">
-       <widget class="QCheckBox" name="cbGeoJsonROI">
-        <property name="text">
-         <string>use this as Region Of Interest</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
-   <item row="6" column="2">
-    <spacer name="verticalSpacer_6">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>51</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="7" column="0" colspan="3">
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0">
-      <spacer name="horizontalSpacer_10">
+   <item>
+    <layout class="QHBoxLayout" name="btnLayout">
+     <item>
+      <spacer name="btnSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
       </spacer>
      </item>
-     <item row="2" column="2">
-      <spacer name="verticalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>17</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="2">
+     <item>
       <widget class="QDialogButtonBox" name="okBtn">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -719,28 +375,9 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0" colspan="3">
-      <widget class="QProgressBar" name="progressBar">
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>23</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
     </layout>
    </item>
+
   </layout>
  </widget>
  <customwidgets>
